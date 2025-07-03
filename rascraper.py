@@ -269,13 +269,13 @@ def run_scraper(roms_folder, system_key, output_mode, progress_callback=None, mu
         if not muos_root:
             raise RuntimeError("No MUOS root folder selected.")
         base_output = os.path.join(muos_root, "info", "catalogue", muos_folder)
-        output_boxarts = base_output
-        output_snaps = base_output
+        output_boxarts = os.path.join(base_output, "box")
+        output_snaps = os.path.join(base_output, "preview")
     else:
         output_boxarts = os.path.join(roms_folder, "images", "Boxarts")
         output_snaps = os.path.join(roms_folder, "images", "Screenshots")
         
-    rom_files = get_rom_files(roms_folder)
+    rom_files = get_rom_files(roms_folder, extensions)
     total = len(rom_files)
     if total == 0:
         raise RuntimeError(f"No ROM files found in {roms_folder} folder.")
@@ -300,7 +300,7 @@ def run_scraper(roms_folder, system_key, output_mode, progress_callback=None, mu
             failed.append(f"{rom_name} (Screenshot)")
         
         if progress_callback:
-            progress_callback(idx, total, failed)
+            progress_callback(idx, total)
             
     return failed
 
@@ -308,7 +308,7 @@ def run_scraper(roms_folder, system_key, output_mode, progress_callback=None, mu
 class RAScraperGUI:
     def __init__(self, root):
         self.root = root
-        root.title("RetroArch Scraper GUI")
+        root.title("RetroArch Scraper")
         root.geometry("600x400")
         
         # Variables
@@ -342,7 +342,7 @@ class RAScraperGUI:
         # Output options
         tk.Label(root, text="Where should artwork be saved?").pack(anchor="w", padx=10, pady=(10,0))
         output_frame = tk.Frame(root)
-        output_frame.pack(fill="w", padx=20)
+        output_frame.pack(fill="x", padx=20)
         tk.Radiobutton(output_frame, text="MUOS-compatible folder (MUOS/info/catalogue/{system})", variable=self.output_option, value="muos").pack(anchor="w")
         tk.Radiobutton(output_frame, text="Within root ROMs folder (/images/Boxarts & /images/Screenshots)", variable=self.output_option, value="roms").pack(anchor="w")
         
@@ -352,13 +352,13 @@ class RAScraperGUI:
         tk.Label(root, textvariable=self.progress_text).pack()
         
         # Run button
-        self.btn_run = tk.Button(root, text="Run Scraper", bg="green", fg="white", command=self.run_scraper_thread)
+        self.btn_run = tk.Button(root, text="Run Scraper", bg="black", fg="white", font=("Arial", 12, "bold"),  command=self.run_scraper_thread)
         self.btn_run.pack(pady=15, ipadx=10, ipady=5)
         
     def browse_roms(self):
         path = filedialog.askdirectory()
         if path:
-            self.muos_root_path.set(path)
+            self.roms_path.set(path)
             
     def browse_muos(self):
         path = filedialog.askdirectory()
