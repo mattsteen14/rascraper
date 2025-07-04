@@ -9,9 +9,69 @@ from io import BytesIO
 
 # ---- SYSTEMS MAPPING ----
 systems = {
-    "Amstrad CPC": {
-        "libretro": "Amstrad_-_CPC",
-        "muos": "Amstrad"
+    "Nintendo": {
+        "libretro": "Nintendo_-_Nintendo_Entertainment_System",
+        "muos": "Nintendo NES-Famicom"
+    },
+    "Super Nintendo": {
+        "libretro": "Nintendo_-_Super_Nintendo_Entertainment_System",
+        "muos": "Nintendo SNES-SFC"
+    },
+    "Nintendo 64": {
+        "libretro": "Nintendo_-_Nintendo_64",
+        "muos": "Nintendo N64"
+    },
+    "Game Boy": {
+        "libretro": "Nintendo_-_Game_Boy",
+        "muos": "Nintendo Game Boy"
+    },
+    "Game Boy Color": {
+        "libretro": "Nintendo_-_Game_Boy_Color",
+        "muos": "Nintendo Game Boy Color"
+    },
+    "Game Boy Advance": {
+        "libretro": "Nintendo_-_Game_Boy_Advance",
+        "muos": "Nintendo Game Boy Advance"
+    },
+    "Nintendo DS": {
+        "libretro": "Nintendo_-_Nintendo_DS",
+        "muos": "Nintendo DS"
+    },
+    "PS1": {
+        "libretro": "Sony_-_PlayStation",
+        "muos": "Sony PlayStation"
+    },
+    "PSP": {
+        "libretro": "Sony_-_PlayStation_Portable",
+        "muos": "Sony PlayStation Portable"
+    },
+    "SEGA Master System": {
+        "libretro": "Sega_-_Master_System_-_Mark_III",
+        "muos": "Sega Master System"
+    },
+    "SEGA Mega Drive/Genesis": {
+        "libretro": "Sega_-_Mega_Drive_-_Genesis",
+        "muos": "Sega Mega Drive - Genesis"
+    },
+    "SEGA Dreamcast": {
+        "libretro": "Sega_-_Dreamcast",
+        "muos": "Sega Dreamcast"
+    },
+    "SEGA Game Gear": {
+        "libretro": "Sega_-_Game_Gear",
+        "muos": "Sega Game Gear"
+    },
+    "SEGA CD": {
+        "libretro": "Sega_-_Mega-CD_-_Sega_CD",
+        "muos": "Sega Mega CD - Sega CD"
+    },
+    "SEGA 32X": {
+        "libretro": "Sega_-_32X",
+        "muos": "Sega 32X"
+    },
+    "SEGA Saturn": {
+        "libretro": "Sega_-_Saturn",
+        "muos": "Sega Saturn"
     },
     "Atari 2600": {
         "libretro": "Atari_-_2600",
@@ -37,6 +97,10 @@ systems = {
         "libretro": "Atari_-_ST",
         "muos": "Atari ST-STE-TT-Falcon"
     },
+    "Magnavox - Odyssey2": {
+        "libretro": "Magnavox_-_Odyssey2",
+        "muos": "Odyssey2 - VideoPac"
+    },
     "Bandai WonderSwan": {
         "libretro": "Bandai_-_WonderSwan",
         "muos": "Bandai WonderSwan-Color"
@@ -44,34 +108,6 @@ systems = {
     "Bandai WonderSwan Color": {
         "libretro": "Bandai_-_WonderSwan_Color",
         "muos": "Bandai WonderSwan-Color"
-    },
-    "ColecoVision": {
-        "libretro": "Coleco_-_ColecoVision",
-        "muos": "ColecoVision"
-    },
-    "Commodore 64": {
-        "libretro": "Commodore_-_64",
-        "muos": "Commodore C64"
-    },
-    "Commodore Amiga": {
-        "libretro": "Commodore_-_Amiga",
-        "muos": "Commodore Amiga"
-    },
-    "DOS": {
-        "libretro": "DOS",
-        "muos": "DOS"
-    },
-    "Game and Watch": {
-        "libretro": "Handheld_Electronic_Game",
-        "muos": "Handheld Electronic - Game and Watch"
-    },
-    "MSX": {
-        "libretro": "Microsoft_-_MSX",
-        "muos": "Microsoft - MSX"
-    },
-    "MSX2": {
-        "libretro": "Microsoft_-_MSX2",
-        "muos": "Microsoft - MSX"
     },
     "NEC PC Engine": {
         "libretro": "NEC_-_PC_Engine_-_TurboGrafx_16",
@@ -85,77 +121,29 @@ systems = {
         "libretro": "NEC_-_PC_Engine_SuperGrafx",
         "muos": "NEC PC Engine SuperGrafx"
     },
-    "Game Boy": {
-        "libretro": "Nintendo_-_Game_Boy",
-        "muos": "Nintendo Game Boy"
-    },
-    "Game Boy Color": {
-        "libretro": "Nintendo_-_Game_Boy_Color",
-        "muos": "Nintendo Game Boy Color"
-    },
-    "Game Boy Advance": {
-        "libretro": "Nintendo_-_Game_Boy_Advance",
-        "muos": "Nintendo Game Boy Advance"
-    },
-    "Nintendo": {
-        "libretro": "Nintendo_-_Nintendo_Entertainment_System",
-        "muos": "Nintendo NES-Famicom"
-    },
-    "Super Nintendo": {
-        "libretro": "Nintendo_-_Super_Nintendo_Entertainment_System",
-        "muos": "Nintendo SNES-SFC"
-    },
-    "Virtual Boy": {
-        "libretro": "Nintendo_-_Virtual_Boy",
-        "muos": "Nintendo Virtual Boy"
-    },
-    "Nintendo DS": {
-        "libretro": "Nintendo_-_Nintendo_DS",
-        "muos": "Nintendo DS"
-    },
-    "Nintendo 64": {
-        "libretro": "Nintendo_-_Nintendo_64",
-        "muos": "Nintendo N64"
-    },
-    "Nintendo GameCube": {
-        "libretro": "Nintendo_-_GameCube",
-        "muos": "Nintendo GameCube"
-    },
-    "Nintendo Wii": {
-        "libretro": "Nintendo_-_Wii",
-        "muos": "Nintendo Wii"
-    },
+    "3DO": {
+        "libretro": "The_3DO_Company_-_3DO",
+        "muos": "The 3DO Company - 3DO"
+    },  
     "Philips CD-i": {
         "libretro": "Philips_-_CD-i",
         "muos": "Philips CDi"
     },
-    "SEGA 32X": {
-        "libretro": "Sega_-_32X",
-        "muos": "Sega 32X"
+    "MSX": {
+        "libretro": "Microsoft_-_MSX",
+        "muos": "Microsoft - MSX"
     },
-    "SEGA CD": {
-        "libretro": "Sega_-_Mega-CD_-_Sega_CD",
-        "muos": "Sega Mega CD - Sega CD"
+    "MSX2": {
+        "libretro": "Microsoft_-_MSX2",
+        "muos": "Microsoft - MSX"
     },
-    "SEGA Master System": {
-        "libretro": "Sega_-_Master_System_-_Mark_III",
-        "muos": "Sega Master System"
+    "FBNeo - Arcade": {
+        "libretro": "FBNeo_-_Arcade_Games",
+        "muos": "Arcade"
     },
-    "SEGA Mega Drive/Genesis": {
-        "libretro": "Sega_-_Mega_Drive_-_Genesis",
-        "muos": "Sega Mega Drive - Genesis"
-    },
-    "SEGA Saturn": {
-        "libretro": "Sega_-_Saturn",
-        "muos": "Sega Saturn"
-    },
-    "SEGA Dreamcast": {
-        "libretro": "Sega_-_Dreamcast",
-        "muos": "Sega Dreamcast"
-    },
-    "SEGA Game Gear": {
-        "libretro": "Sega_-_Game_Gear",
-        "muos": "Sega Game Gear"
+    "MAME - Arcade": {
+        "libretro": "MAME",
+        "muos": "Arcade"
     },
     "Atomiswave": {
         "libretro": "Atomiswave",
@@ -164,10 +152,6 @@ systems = {
     "SEGA Naomi": {
         "libretro": "Sega_-_Naomi",
         "muos": "Sega Atomiswave Naomi"
-    },
-    "ZX Spectrum": {
-        "libretro": "Sinclair_-_ZX_Spectrum",
-        "muos": "Sinclair ZX Spectrum"
     },
     "SNK Neo Geo": {
         "libretro": "SNK_-_Neo_Geo",
@@ -185,17 +169,49 @@ systems = {
         "libretro": "SNK_-_Neo_Geo_Pocket_Color",
         "muos": "SNK Neo Geo Pocket - Color"
     },
-    "PS1": {
-        "libretro": "Sony_-_PlayStation",
-        "muos": "Sony PlayStation"
+    "ColecoVision": {
+        "libretro": "Coleco_-_ColecoVision",
+        "muos": "ColecoVision"
+    },
+    "Amstrad CPC": {
+        "libretro": "Amstrad_-_CPC",
+        "muos": "Amstrad"
+    },
+    "Commodore 64": {
+        "libretro": "Commodore_-_64",
+        "muos": "Commodore C64"
+    },
+    "Commodore Amiga": {
+        "libretro": "Commodore_-_Amiga",
+        "muos": "Commodore Amiga"
+    },
+    "ZX Spectrum": {
+        "libretro": "Sinclair_-_ZX_Spectrum",
+        "muos": "Sinclair ZX Spectrum"
+    },
+    "DOS": {
+        "libretro": "DOS",
+        "muos": "DOS"
+    },
+    "Game and Watch": {
+        "libretro": "Handheld_Electronic_Game",
+        "muos": "Handheld Electronic - Game and Watch"
+    },
+    "Virtual Boy": {
+        "libretro": "Nintendo_-_Virtual_Boy",
+        "muos": "Nintendo Virtual Boy"
+    },
+    "Nintendo GameCube": {
+        "libretro": "Nintendo_-_GameCube",
+        "muos": "Nintendo GameCube"
+    },
+    "Nintendo Wii": {
+        "libretro": "Nintendo_-_Wii",
+        "muos": "Nintendo Wii"
     },
     "PS2": {
         "libretro": "Sony_-_PlayStation_2",
         "muos": "Sony PlayStation 2"
-    },
-    "PSP": {
-        "libretro": "Sony_-_PlayStation_Portable",
-        "muos": "Sony PlayStation Portable"
     },
     "Sony PlayStation 3": {
         "libretro": "Sony_-_PlayStation_3",
@@ -205,33 +221,25 @@ systems = {
         "libretro": "Sony_-_PlayStation_Vita",
         "muos": "Sony PlayStation Vita"
     },
-    "3DO": {
-        "libretro": "The_3DO_Company_-_3DO",
-        "muos": "The 3DO Company - 3DO"
-    },
-    "FBNeo - Arcade": {
-        "libretro": "FBNeo_-_Arcade_Games",
-        "muos": "Arcade"
-    },
-    "MAME": {
-        "libretro": "MAME",
-        "muos": "Arcade"
-    },
-    "Magnavox - Odyssey2": {
-        "libretro": "Magnavox_-_Odyssey_2",
-        "muos": "Odyssey2 - VideoPac"
-    }
 }
-
-GITHUB_COMMIT = "00498a7f6db86bc45146b835ba1aeed58a1a1fe5"
 
 extensions = ('.zip', '.7z', '.nes', '.sfc', '.smc', '.gba', '.gbc', '.gb', '.n64', '.z64', '.v64', '.bin', '.iso', '.chd', '.rom', '.mgw', '.nds', '.vb', '.p8', '.32x', '.sms', '.md', '.ngc', '.wsc', '.ws', '.dsk', '.tap', '.z80')
 
 # --- UTILS ___
-def download_libretro_thumbnail(libretro_folder, art_type, rom_name):
+
+def get_latest_commit_hash(libretro_folder):
+    api_url = f"https://api.github.com/repos/libretro-thumbnails/{libretro_folder}/commits"
+    headers = {"Accept": "application/vnd.github+json"}
+    response = requests.get(api_url, headers=headers)
+    if response.status_code == 200:
+        return response.json()[0]["sha"]
+    else:
+        raise RuntimeError(f"Failed to fetch latest commit for {libretro_folder}: {response.status_code}")
+
+def download_libretro_thumbnail(libretro_folder, art_type, rom_name, commit):
     filename = f"{rom_name}.png"
     encoded_filename = quote(filename, safe="")  # full encoding
-    url = f"https://raw.githubusercontent.com/libretro-thumbnails/{libretro_folder}/{GITHUB_COMMIT}/{art_type}/{encoded_filename}"
+    url = f"https://raw.githubusercontent.com/libretro-thumbnails/{libretro_folder}/{commit}/{art_type}/{encoded_filename}"
     response = requests.get(url)
     if response.status_code == 200:
         return response.content
@@ -239,13 +247,17 @@ def download_libretro_thumbnail(libretro_folder, art_type, rom_name):
         return None
     
 def resize_image(image_bytes, width=300):
-    img = Image.open(BytesIO(image_bytes))
-    w_percent = width / float(img.size[0])
-    h_size = int((float(img.size[1]) * float(w_percent)))
-    img = img.resize((width, h_size), Image.LANCZOS)
-    output = BytesIO()
-    img.save(output, format="PNG")
-    return output.getvalue()
+    try:
+        img = Image.open(BytesIO(image_bytes))
+        w_percent = width / float(img.size[0])
+        h_size = int((float(img.size[1]) * float(w_percent)))
+        img = img.resize((width, h_size), Image.LANCZOS)
+        output = BytesIO()
+        img.save(output, format="PNG")
+        return output.getvalue()
+    except Exception as e:
+        print(f"✖ [ERROR] Failed to resize image: {e}")
+        return None
     
 def save_image(image_bytes, path):
     os.makedirs(os.path.dirname(path), exist_ok=True)
@@ -264,6 +276,7 @@ def get_rom_files(roms_folder, extensions):
 def run_scraper(roms_folder, system_key, output_mode, progress_callback=None, muos_root=None):
     libretro_folder = systems[system_key]["libretro"]
     muos_folder = systems[system_key]["muos"]
+    commit = get_latest_commit_hash(libretro_folder)
     
     if output_mode == "muos":
         if not muos_root:
@@ -285,15 +298,18 @@ def run_scraper(roms_folder, system_key, output_mode, progress_callback=None, mu
         rom_name, _ = os.path.splitext(rom)
         
         # Download boxart
-        boxart_bytes = download_libretro_thumbnail(libretro_folder, "Named_Boxarts", rom_name)
+        boxart_bytes = download_libretro_thumbnail(libretro_folder, "Named_Boxarts", rom_name, commit)
         if boxart_bytes:
             resized = resize_image(boxart_bytes, width=300)
-            save_image(resized, os.path.join(output_boxarts, f"{rom_name}.png"))
+            if resized:
+                save_image(resized, os.path.join(output_boxarts, f"{rom_name}.png"))
+            else:
+                failed.append(f"{rom_name} (Boxart - Resize Error)")
         else:
             failed.append(f"{rom_name} (Boxart)")
         
         # Download screenshot
-        snap_bytes = download_libretro_thumbnail(libretro_folder, "Named_Snaps", rom_name)
+        snap_bytes = download_libretro_thumbnail(libretro_folder, "Named_Snaps", rom_name, commit)
         if snap_bytes:
             save_image(snap_bytes, os.path.join(output_snaps, f"{rom_name}.png"))
         else:
@@ -352,7 +368,7 @@ class RAScraperGUI:
         tk.Label(root, textvariable=self.progress_text).pack()
         
         # Run button
-        self.btn_run = tk.Button(root, text="Run Scraper", bg="black", fg="white", font=("Arial", 12, "bold"),  command=self.run_scraper_thread)
+        self.btn_run = tk.Button(root, text="RUN SCRAPER", bg="white", fg="black", font=("Arial", 12, "bold"),  command=self.run_scraper_thread)
         self.btn_run.pack(pady=15, ipadx=10, ipady=5)
         
     def browse_roms(self):
