@@ -305,12 +305,13 @@ def run_scraper(roms_folder, system_key, output_mode, progress_callback=None, mu
     skipped = []
     for idx, rom in enumerate(rom_files, start=1):
         rom_name, _ = os.path.splitext(rom)
+        normalized_name = normalize_libretro_filename(rom_name)
+        
         boxart_path = os.path.join(output_boxarts, f"{rom_name}.png")
         snap_path = os.path.join(output_snaps, f"{rom_name}.png")
         
         # Download boxart
         if not os.path.exists(boxart_path):
-            normalized_name = normalize_libretro_filename(rom_name)
             boxart_bytes = download_libretro_thumbnail(libretro_folder, "Named_Boxarts", normalized_name, commit)   
             if boxart_bytes:
                 resized = resize_image(boxart_bytes, width=300)
