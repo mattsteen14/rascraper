@@ -225,6 +225,14 @@ systems = {
 
 extensions = ('.zip', '.7z', '.nes', '.sfc', '.smc', '.gba', '.gbc', '.gb', '.n64', '.z64', '.v64', '.bin', '.iso', '.chd', '.rom', '.mgw', '.nds', '.vb', '.p8', '.32x', '.sms', '.md', '.ngc', '.wsc', '.ws', '.dsk', '.tap', '.z80')
 
+libretro_replacements = {
+    "&": "_",
+}
+def normalize_libretro_filename(name):
+    for original, replacement in libretro_replacements.items():
+        name = name.replace(original, replacement)
+    return name
+
 # --- UTILS ___
 
 def get_latest_commit_hash(libretro_folder):
@@ -294,31 +302,41 @@ def run_scraper(roms_folder, system_key, output_mode, progress_callback=None, mu
         raise RuntimeError(f"No ROM files found in {roms_folder} folder.")
     
     failed = []
+    skipped = []
     for idx, rom in enumerate(rom_files, start=1):
         rom_name, _ = os.path.splitext(rom)
+        boxart_path = os.path.join(output_boxarts, f"{rom_name}.png")
+        snap_path = os.path.join(output_snaps, f"{rom_name}.png")
         
         # Download boxart
-        boxart_bytes = download_libretro_thumbnail(libretro_folder, "Named_Boxarts", rom_name, commit)
-        if boxart_bytes:
-            resized = resize_image(boxart_bytes, width=300)
-            if resized:
-                save_image(resized, os.path.join(output_boxarts, f"{rom_name}.png"))
+        if not os.path.exists(boxart_path):
+            normalized_name = normalize_libretro_filename(rom_name)
+            boxart_bytes = download_libretro_thumbnail(libretro_folder, "Named_Boxarts", normalized_name, commit)   
+            if boxart_bytes:
+                resized = resize_image(boxart_bytes, width=300)
+                if resized:
+                    save_image(resized, boxart_path)
+                else:
+                    failed.append(f"{rom_name} (Boxart - Resize Error)")
             else:
-                failed.append(f"{rom_name} (Boxart - Resize Error)")
+                failed.append(f"{rom_name} (Boxart)")
         else:
-            failed.append(f"{rom_name} (Boxart)")
+            skipped.append(f"{rom_name} (Boxart)")
         
         # Download screenshot
-        snap_bytes = download_libretro_thumbnail(libretro_folder, "Named_Snaps", rom_name, commit)
-        if snap_bytes:
-            save_image(snap_bytes, os.path.join(output_snaps, f"{rom_name}.png"))
+        if not os.path.exists(snap_path):
+            snap_bytes = download_libretro_thumbnail(libretro_folder, "Named_Snaps", normalized_name, commit)
+            if snap_bytes:
+                save_image(snap_bytes, snap_path)
+            else:
+                failed.append(f"{rom_name} (Screenshot)")
         else:
-            failed.append(f"{rom_name} (Screenshot)")
+            skipped.append(f"{rom_name} (Screenshot)")
         
         if progress_callback:
             progress_callback(idx, total)
             
-    return failed
+    return failed, skipped
 
 # --- GUI CLASS ---
 class RAScraperGUI:
@@ -406,10 +424,15 @@ class RAScraperGUI:
         
         def task():
             try:
-                failed = run_scraper(roms_folder, system_key, output_mode, self.update_progress, muos_root)
+                failed, skipped = run_scraper(roms_folder, system_key, output_mode, self.update_progress, muos_root)
                 self.progress_text.set("Done!")
+                message = "Scraping complete!\n"
+                if skipped:
+                    message += f"✓ Skipped {len(skipped)} image(s) already present.\n"
                 if failed:
-                    messagebox.showwarning("Completed with missing images", "Some images could not be found:\n" + "\n".join(failed))
+                    message += f"✖ Failed to find {len(failed)} images:\n" + "\n".join(failed)
+                if skipped or failed:
+                    messagebox.showinfo("Completed", message)
                 else:
                     messagebox.showinfo("Completed", "All images have been downloaded.")
             except Exception as e:
