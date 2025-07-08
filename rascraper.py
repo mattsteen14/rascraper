@@ -227,11 +227,18 @@ extensions = ('.zip', '.7z', '.nes', '.sfc', '.smc', '.gba', '.gbc', '.gb', '.n6
 
 libretro_replacements = {
     "&": "_",
+    "(Rev 1)": "",
+    "(Rev 2)": "",
+    "(Rev 3)": "",
+    "(Rev 4)": "",
+    "(Rev 5)": "",
+    "(Rev 6)": "",
+    "~": "_",
 }
 def normalize_libretro_filename(name):
     for original, replacement in libretro_replacements.items():
         name = name.replace(original, replacement)
-    return name
+    return name.strip()
 
 # --- UTILS ___
 
