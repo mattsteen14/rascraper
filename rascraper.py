@@ -49,6 +49,10 @@ systems = {
         "libretro": "Sega_-_Master_System_-_Mark_III",
         "muos": "Sega Master System"
     },
+    "SEGA SG-1000": {
+        "libretro": "Sega_-_SG-1000",
+        "muos": "Sega SG-1000"
+    },
     "SEGA Mega Drive/Genesis": {
         "libretro": "Sega_-_Mega_Drive_-_Genesis",
         "muos": "Sega Mega Drive - Genesis"
